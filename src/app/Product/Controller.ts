@@ -22,7 +22,7 @@ class Product {
   }
   async post(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const body = req.body as bodyType;
+      const body = req.body as bodyType; //type casting
       const payload = {
         name: body.name,
         descript: body.descript,
@@ -40,7 +40,7 @@ class Product {
   }
   async getOne(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string }; //type casting
 
       const product = await prisma.product.findUniqueOrThrow({
         where: {
@@ -55,8 +55,8 @@ class Product {
   }
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
-      const body: bodyType = req.body;
+      const { id } = req.params as { id: string };
+      const body = req.body as bodyType;
 
       const payload = {
         name: body.name,
@@ -79,7 +79,7 @@ class Product {
   }
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
 
       const product = await prisma.product.delete({
         where: {
